@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.ExpressApp.DC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +7,13 @@ using System.Threading.Tasks;
 
 namespace SearchFormGenerator.Module.BusinessObjects
 {
-    public interface ISearch
-    {
-        
-    }
+  
     public class SearchableClass:Attribute
     {
-        
-        public SearchableClass()
+        public Type SearchFormType { get; set; }
+        public SearchableClass(Type searchFormType)
         {
-            
+            SearchFormType = searchFormType;
         }
     }
     public class SearchAttribute : Attribute

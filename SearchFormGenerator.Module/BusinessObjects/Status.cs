@@ -14,12 +14,9 @@ using DevExpress.Persistent.Validation;
 
 namespace SearchFormGenerator.Module.BusinessObjects
 {
-    [NonPersistent()]
-    public class CustomerSearch : BaseObject
-    { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
-        public CustomerSearch(Session session)
-            : base(session)
-        {
-        }
+
+    public enum Status
+    {
+        Lead,Customer
     }
 }

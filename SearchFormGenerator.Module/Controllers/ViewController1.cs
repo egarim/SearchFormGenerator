@@ -29,6 +29,7 @@ namespace SearchFormGenerator.Module.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
+         
             // Perform various tasks depending on the target View.
         }
         protected override void OnViewControlsCreated()
@@ -44,12 +45,19 @@ namespace SearchFormGenerator.Module.Controllers
 
         private void ShowSearchForm_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
         {
-            XPDictionary xpDictionary = DevExpress.ExpressApp.Xpo.XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
-            var MyClassInfo=   xpDictionary.Classes.Cast<XPClassInfo>().FirstOrDefault(ci => ci.FullName == "MyClass");
-            IObjectSpace objectSpace = Application.CreateObjectSpace();
-            var MyClass=  objectSpace.CreateObject(typeof(SearchFormBase));
+
+
+            SearchableClass SearchAttribute = this.View.ObjectTypeInfo.FindAttribute<SearchableClass>();
+            if(SearchAttribute != null)
+            {
+                IObjectSpace objectSpace = Application.CreateObjectSpace();
+                var MyClass = objectSpace.CreateObject(SearchAttribute.SearchFormType);
+
+                e.View = Application.CreateDetailView(objectSpace, MyClass);
+            }
+
+
            
-            e.View = Application.CreateDetailView(objectSpace, MyClass);
         }
     }
 }
