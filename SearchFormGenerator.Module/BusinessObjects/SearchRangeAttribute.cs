@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SearchFormGenerator.Module.BusinessObjects
 {
-
+    public interface ISearch
+    {
+        
+    }
     public class SearchableClass:Attribute
     {
         
@@ -18,12 +21,12 @@ namespace SearchFormGenerator.Module.BusinessObjects
     public class SearchAttribute : Attribute
     {
 
-        public string Caption { get; set; }
+   
         public bool IsRange { get; set; }
-        public SearchAttribute(bool IsRange, string caption)
+        public SearchAttribute(bool IsRange)
         {
             this.IsRange = IsRange;
-            Caption = caption;
+         
         }
     }
 }

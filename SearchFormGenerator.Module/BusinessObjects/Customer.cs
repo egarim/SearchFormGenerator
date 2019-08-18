@@ -21,11 +21,7 @@ namespace SearchFormGenerator.Module.BusinessObjects
     }
     [SearchableClass()]
     [DefaultClassOptions]
-    //[ImageName("BO_Contact")]
-    //[DefaultProperty("DisplayMemberNameForLookupEditorsOfThisType")]
-    //[DefaultListViewOptions(MasterDetailMode.ListViewOnly, false, NewItemRowPosition.None)]
-    //[Persistent("DatabaseTableName")]
-    // Specify more UI options using a declarative approach (https://documentation.devexpress.com/#eXpressAppFramework/CustomDocument112701).
+   
     public class Customer : BaseObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
         public Customer(Session session)
@@ -58,19 +54,19 @@ namespace SearchFormGenerator.Module.BusinessObjects
             set => SetPropertyValue(nameof(Name), ref name, value);
         }
 
-        [SearchAttribute(false, "Date")]
+        [SearchAttribute(false)]
         public bool Active
         {
             get => active;
             set => SetPropertyValue(nameof(Active), ref active, value);
         }
-        [SearchAttribute(true, "Date")]
+        [SearchAttribute(true)]
         public Status Status
         {
             get => status;
             set => SetPropertyValue(nameof(Status), ref status, value);
         }
-        [SearchAttribute(true,"Date")]
+        [SearchAttribute(true)]
         public DateTime Date
         {
             get => date;
