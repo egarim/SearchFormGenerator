@@ -57,12 +57,16 @@ namespace SearchFormGenerator.Module {
                     var SearchParameters=member.FindAttribute<SearchAttribute>();
                     if(SearchParameters.IsRange)
                     {
-                        typesInfo.FindTypeInfo(typeof(CustomerSearch)).CreateMember($"From{member.Name}", member.MemberType);
-                        typesInfo.FindTypeInfo(typeof(CustomerSearch)).CreateMember($"To{member.Name}", member.MemberType);
+                         var FromMember=   typesInfo.FindTypeInfo(typeof(CustomerSearch)).CreateMember($"From{member.Name}", member.MemberType);
+                         FromMember.AddAttribute(new DetailViewLayoutAttribute(LayoutColumnPosition.Left));
+                         var ToMember=   typesInfo.FindTypeInfo(typeof(CustomerSearch)).CreateMember($"To{member.Name}", member.MemberType);
+                         FromMember.AddAttribute(new DetailViewLayoutAttribute(LayoutColumnPosition.Right));
+
                     }
                     else
                     {
-                        typesInfo.FindTypeInfo(typeof(CustomerSearch)).CreateMember($"{member.Name}", member.MemberType);
+                        var SingleValue=typesInfo.FindTypeInfo(typeof(CustomerSearch)).CreateMember($"{member.Name}", member.MemberType);
+                        SingleValue.AddAttribute(new DetailViewLayoutAttribute(LayoutColumnPosition.Right));
                     }
                  
                 }

@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace SearchFormGenerator.Module.BusinessObjects
 {
+    //[Persistent("CRM_"+nameof(Customer)]
     [SearchableClass(typeof(CustomerSearch))]
     [DefaultClassOptions]
     public class Customer : BaseObject
@@ -26,6 +27,7 @@ namespace SearchFormGenerator.Module.BusinessObjects
         string name;
         string code;
 
+        [SearchAttribute(true)]
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string Code
         {

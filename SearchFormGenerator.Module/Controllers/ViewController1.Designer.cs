@@ -40,6 +40,7 @@
             this.showSearchForm.Id = "e7553118-6264-4ecf-9f5c-2b7c960513a7";
             this.showSearchForm.ToolTip = null;
             this.showSearchForm.CustomizePopupWindowParams += new DevExpress.ExpressApp.Actions.CustomizePopupWindowParamsEventHandler(this.ShowSearchForm_CustomizePopupWindowParams);
+            this.showSearchForm.Execute += new DevExpress.ExpressApp.Actions.PopupWindowShowActionExecuteEventHandler(this.ShowSearchForm_Execute);
             // 
             // ViewController1
             // 

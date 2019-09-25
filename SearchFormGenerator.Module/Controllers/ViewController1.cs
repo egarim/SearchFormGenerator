@@ -29,7 +29,7 @@ namespace SearchFormGenerator.Module.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
-         
+
             // Perform various tasks depending on the target View.
         }
         protected override void OnViewControlsCreated()
@@ -43,21 +43,50 @@ namespace SearchFormGenerator.Module.Controllers
             base.OnDeactivated();
         }
 
+        SearchableClass searchAttribute;
+        object SearchFormObject;
         private void ShowSearchForm_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
         {
-
-
-            SearchableClass SearchAttribute = this.View.ObjectTypeInfo.FindAttribute<SearchableClass>();
-            if(SearchAttribute != null)
+            searchAttribute = this.View.ObjectTypeInfo.FindAttribute<SearchableClass>();
+            if (searchAttribute != null)
             {
                 IObjectSpace objectSpace = Application.CreateObjectSpace();
-                var MyClass = objectSpace.CreateObject(SearchAttribute.SearchFormType);
-
-                e.View = Application.CreateDetailView(objectSpace, MyClass);
+                SearchFormObject = objectSpace.CreateObject(searchAttribute.SearchFormType);
+                e.View = Application.CreateDetailView(objectSpace, SearchFormObject);
             }
 
 
-           
+
+        }
+
+        private void ShowSearchForm_Execute(object sender, PopupWindowShowActionExecuteEventArgs e)
+        {
+            List<CriteriaOperator> Criterias = new List<CriteriaOperator>();
+
+            var item = this.View.ObjectTypeInfo;
+            var SearchTypeInfo = XafTypesInfo.Instance.FindTypeInfo(searchAttribute.SearchFormType);
+            var members = item.Members.Where(m => m.FindAttribute<SearchAttribute>() != null);
+            foreach (var member in members)
+            {
+                var SearchParameters = member.FindAttribute<SearchAttribute>();
+                if (SearchParameters.IsRange)
+                {
+
+                    var FromValue = SearchTypeInfo.FindMember($"From{member.Name}").GetValue(SearchFormObject);
+                    var ToValue = SearchTypeInfo.FindMember($"To{member.Name}").GetValue(SearchFormObject);
+                    BetweenOperator betweenOperator = new BetweenOperator(member.Name, FromValue, ToValue);
+                    Criterias.Add(betweenOperator);
+                }
+                else
+                {
+                    var SingleValue = SearchTypeInfo.FindMember($"{member.Name}").GetValue(SearchFormObject);
+                    BinaryOperator binaryOperator = new BinaryOperator(member.Name, SingleValue);
+                    Criterias.Add(binaryOperator);
+                }
+
+            }
+            var SearchCriteria=  CriteriaOperator.Or(Criterias);
+
         }
     }
 }
