@@ -57,15 +57,15 @@ namespace SearchFormGenerator.Module {
                     var SearchParameters=member.FindAttribute<SearchAttribute>();
                     if(SearchParameters.IsRange)
                     {
-                         var FromMember=   typesInfo.FindTypeInfo(typeof(CustomerSearch)).CreateMember($"From{member.Name}", member.MemberType);
+                         var FromMember=   typesInfo.FindTypeInfo(typeof(SearchFormBase)).CreateMember($"From{member.Name}", member.MemberType);
                          FromMember.AddAttribute(new DetailViewLayoutAttribute(LayoutColumnPosition.Left));
-                         var ToMember=   typesInfo.FindTypeInfo(typeof(CustomerSearch)).CreateMember($"To{member.Name}", member.MemberType);
+                         var ToMember=   typesInfo.FindTypeInfo(typeof(SearchFormBase)).CreateMember($"To{member.Name}", member.MemberType);
                          FromMember.AddAttribute(new DetailViewLayoutAttribute(LayoutColumnPosition.Right));
 
                     }
                     else
                     {
-                        var SingleValue=typesInfo.FindTypeInfo(typeof(CustomerSearch)).CreateMember($"{member.Name}", member.MemberType);
+                        var SingleValue=typesInfo.FindTypeInfo(typeof(SearchFormBase)).CreateMember($"{member.Name}", member.MemberType);
                         SingleValue.AddAttribute(new DetailViewLayoutAttribute(LayoutColumnPosition.Right));
                     }
                  
@@ -96,7 +96,7 @@ namespace SearchFormGenerator.Module {
             //    xpDictionary.GetClassInfo(typeof(PersistentObject2)).CreateMember("PersistentObject1", typeof(PersistentObject1), new AssociationAttribute("PersistentObject1-PersistentObject2s"));
             //}
             ////Dennis: take special note of the fact that you have to refresh information about type, only if you made the changes in the XPDictionary. If you made the changes directly in the TypeInfo, refreshing is not necessary.
-            XafTypesInfo.Instance.RefreshInfo(typeof(CustomerSearch));
+            XafTypesInfo.Instance.RefreshInfo(typeof(SearchFormBase));
             //XafTypesInfo.Instance.RefreshInfo(typeof(PersistentObject2));
         }
        

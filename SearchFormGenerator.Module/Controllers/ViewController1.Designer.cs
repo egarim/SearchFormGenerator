@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.showSearchForm = new DevExpress.ExpressApp.Actions.PopupWindowShowAction(this.components);
+            this.saClearCriteria = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // showSearchForm
             // 
@@ -42,14 +43,24 @@
             this.showSearchForm.CustomizePopupWindowParams += new DevExpress.ExpressApp.Actions.CustomizePopupWindowParamsEventHandler(this.ShowSearchForm_CustomizePopupWindowParams);
             this.showSearchForm.Execute += new DevExpress.ExpressApp.Actions.PopupWindowShowActionExecuteEventHandler(this.ShowSearchForm_Execute);
             // 
+            // saClearCriteria
+            // 
+            this.saClearCriteria.Caption = "Clear Filter";
+            this.saClearCriteria.ConfirmationMessage = null;
+            this.saClearCriteria.Id = "7fb66f43-8a7d-49d9-be3a-06e37cbb4ae9";
+            this.saClearCriteria.ToolTip = null;
+            this.saClearCriteria.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.SaClearCriteria_Execute);
+            // 
             // ViewController1
             // 
             this.Actions.Add(this.showSearchForm);
+            this.Actions.Add(this.saClearCriteria);
 
         }
 
         #endregion
 
         private DevExpress.ExpressApp.Actions.PopupWindowShowAction showSearchForm;
+        private DevExpress.ExpressApp.Actions.SimpleAction saClearCriteria;
     }
 }

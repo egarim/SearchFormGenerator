@@ -86,7 +86,22 @@ namespace SearchFormGenerator.Module.Controllers
 
             }
             var SearchCriteria=  CriteriaOperator.Or(Criterias);
+            ((ListView)View).CollectionSource.Criteria["SearchForm"] = SearchCriteria;
+            SearchFormBase searchFormBase = (SearchFormBase)SearchFormObject;
+            if(searchFormBase.SaveParameters)
+            {
+                var os= this.Application.CreateObjectSpace();
+                var Storage= os.CreateObject<SearchFormStorage>();
+                Storage.UserName = SecuritySystem.CurrentUserName;
+                Storage.ViewId = this.View.Id;
+                Storage.Criteria = SearchCriteria.ToString();
+                os.CommitChanges();
+            }
+        }
 
+        private void SaClearCriteria_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            ((ListView)View).CollectionSource.Criteria["SearchForm"] = null;
         }
     }
 }

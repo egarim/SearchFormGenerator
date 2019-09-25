@@ -28,6 +28,8 @@
             // 
             this.RequiredModuleTypes.Add(typeof(SearchFormGenerator.Module.SearchFormGeneratorModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
+
         }
 
         #endregion

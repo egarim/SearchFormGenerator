@@ -7,7 +7,7 @@ using System.Linq;
 namespace SearchFormGenerator.Module.BusinessObjects
 {
     //[Persistent("CRM_"+nameof(Customer)]
-    [SearchableClass(typeof(CustomerSearch))]
+    [SearchableClass(typeof(SearchFormBase))]
     [DefaultClassOptions]
     public class Customer : BaseObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
